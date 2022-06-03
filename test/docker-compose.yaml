@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  vault-server:
+    image: vault:latest
+    ports:
+      - "8200:8200"
+    environment:
+      VAULT_ADDR: "http://0.0.0.0:8200"
+      VAULT_DEV_ROOT_TOKEN_ID: "test_root"
+    cap_add:
+      - IPC_LOCK
+  product-db:
+    image: 'hashicorpdemoapp/product-api-db:v0.0.20'
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_DB=products
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
